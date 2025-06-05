@@ -11,7 +11,7 @@ class ApiPipelineService {
     );
   }
 
-    Future<http.Response> post(String url, Map<String, String> payload) async {
+    Future<http.Response> post(String url, Map<String, dynamic> payload) async {
     return await http.post(
       Uri.parse(url),
       body: jsonEncode(payload),

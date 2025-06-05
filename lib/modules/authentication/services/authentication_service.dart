@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import '../../../constants/api_constants.dart';
 
 class AuthenticationService {
-    Future<http.Response> auth(Map<String, String> data) async {
+  Future<http.Response> auth(Map<String, String> data) async {
     return await http.post(
       Uri.parse(ApiConstants.login),
       headers: {
@@ -17,16 +17,19 @@ class AuthenticationService {
     );
   }
 
-  Future<http.Response> test (Map<String, String> data) async {
+  Future<http.Response> test(Map<String, String> data) async {
     var headers = {
-  'x-api-key': 'd35f5e4f6cd09f23301b777e4bd2f36b876634c84ac2b024e73fed33d17504282'
-};
-var request = http.MultipartRequest('POST', Uri.parse('https://test-agent.eazzypay.co.zw/api/login'));
-request.fields.addAll(data);
+      'x-api-key':
+          '8a6408c6818c0f59175a665c600c3ea5c4036c6e9bc7af3474c2400dce693469',
+      'Content-Type': 'application/json',
+      'accept': ApiConstants.acceptType,
+    };
+    var request = http.MultipartRequest('POST', Uri.parse(ApiConstants.login));
+    request.fields.addAll(data);
 
-request.headers.addAll(headers);
+    request.headers.addAll(headers);
 
-http.StreamedResponse response = await request.send();
+    http.StreamedResponse response = await request.send();
 
 // if (response.statusCode == 200) {
 //   print(await response.stream.bytesToString());

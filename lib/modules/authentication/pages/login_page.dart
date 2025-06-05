@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart';
@@ -15,7 +17,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.white,
+      backgroundColor: Colors.white,
 
       body: Center(
         child: Padding(
@@ -25,8 +27,9 @@ class LoginPage extends StatelessWidget {
             children: [
               // Logo
               Image.asset(
-                'assets/images/eazzypay_logo.jpeg', // Add your logo to assets and reference it here
-                height: 120,
+                'assets/images/eazzypay_logo.png', // Add your logo to assets and reference it here
+                height: 170,
+                fit: BoxFit.cover
               ),
               const SizedBox(height: 20),
 
@@ -87,17 +90,11 @@ class LoginPage extends StatelessWidget {
                     if (response.statusCode == 200) {
                       Navigator.of(context).pushReplacementNamed(RoutingConstants.dashboard);
                     }
+                    ProcessNotificationService.error(context, jsonDecode(response.body)['message']);
                   } on Exception catch (e) {
                     ProcessNotificationService.error(context, '$e');
                   }
                 },
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 40),
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    backgroundColor: Color(0xFF405189)),
                 child: Text(
                   'Login',
                   style: TextStyle(

@@ -3,7 +3,7 @@ class UserModel {
   String? tokenType;
   int? expiresIn;
   Company? company;
-  List<CompanyProducts>? companyProducts;
+  List<CompanyProduct>? companyProducts;
 
   UserModel(
       {this.accessToken,
@@ -19,24 +19,24 @@ class UserModel {
     company =
         json['company'] != null ? new Company.fromJson(json['company']) : null;
     if (json['company_products'] != null) {
-      companyProducts = <CompanyProducts>[];
+      companyProducts = <CompanyProduct>[];
       json['company_products'].forEach((v) {
-        companyProducts!.add(new CompanyProducts.fromJson(v));
+        companyProducts!.add(new CompanyProduct.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['access_token'] = this.accessToken;
-    data['token_type'] = this.tokenType;
-    data['expires_in'] = this.expiresIn;
-    if (this.company != null) {
-      data['company'] = this.company!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['access_token'] = accessToken;
+    data['token_type'] = tokenType;
+    data['expires_in'] = expiresIn;
+    if (company != null) {
+      data['company'] = company!.toJson();
     }
-    if (this.companyProducts != null) {
+    if (companyProducts != null) {
       data['company_products'] =
-          this.companyProducts!.map((v) => v.toJson()).toList();
+          companyProducts!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -89,39 +89,42 @@ class Company {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['company_name'] = this.companyName;
-    data['company_registration_number'] = this.companyRegistrationNumber;
-    data['email'] = this.email;
-    data['telephone'] = this.telephone;
-    data['external_reference'] = this.externalReference;
-    data['type'] = this.type;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['mobile'] = this.mobile;
-    data['is_platform'] = this.isPlatform;
-    data['integration_key'] = this.integrationKey;
-    data['parent_company_id'] = this.parentCompanyId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['company_name'] = companyName;
+    data['company_registration_number'] = companyRegistrationNumber;
+    data['email'] = email;
+    data['telephone'] = telephone;
+    data['external_reference'] = externalReference;
+    data['type'] = type;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['mobile'] = mobile;
+    data['is_platform'] = isPlatform;
+    data['integration_key'] = integrationKey;
+    data['parent_company_id'] = parentCompanyId;
     return data;
   }
 }
 
-class CompanyProducts {
+class CompanyProduct {
   int? id;
   String? displayName;
+  String? currency;
 
-  CompanyProducts({this.id, this.displayName});
+  CompanyProduct({this.id, this.displayName, this.currency});
 
-  CompanyProducts.fromJson(Map<String, dynamic> json) {
+  CompanyProduct.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     displayName = json['display_name'];
+    currency = json['currency'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['display_name'] = this.displayName;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['display_name'] = displayName;
+    data['currency'] = currency;
     return data;
   }
 }
